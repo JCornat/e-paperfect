@@ -1,0 +1,20 @@
+version: '3'
+services:
+    python:
+        build: .
+        container_name: e-paperfect
+        volumes:
+            - ./src:/src/src
+            - ./lib:/src/lib
+            - ./assets:/src/assets
+        environment:
+            - TZ=Europe/Paris
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "100m"
+                max-file: "3"
+networks:
+    default:
+        name: main
+        external: true
