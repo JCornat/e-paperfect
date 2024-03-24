@@ -16,11 +16,11 @@ def font(size="base", weight="Regular", family="PTSans", italic=False):
     if size == "xs":
         size_int = 12
     elif size == "sm":
-        size_int = 16
+        size_int = 14
     elif size == "base":
-        size_int = 20
+        size_int = 16
     elif size == "lg":
-        size_int = 22
+        size_int = 20
     elif size == "xl":
         size_int = 24
     elif size == "2xl":
