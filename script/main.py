@@ -1,18 +1,57 @@
 from PIL import Image, ImageDraw
+import logging
+import time
 from component import calendar, weather, goal, graph, meeting, todo
 from shared import utils, variables as var
+from lib import epdfake
 
-screen_width = 800
-screen_height = 480
+logging.basicConfig(level=logging.DEBUG)
 
-Himage = Image.new('1', (screen_height, screen_width), 255)  # 255: clear the frame
-draw_Himage = ImageDraw.Draw(Himage)
+epd = epdfake.EPD()
 
-Himage.paste(calendar.draw(), (var.margin, var.margin))
-Himage.paste(weather.draw(), (250, var.margin))
-Himage.paste(meeting.draw(), (var.margin, 240))
-Himage.paste(todo.draw(), (250, 240))
-Himage.paste(goal.draw(), (var.margin, 480))
-Himage.paste(graph.draw(), (var.margin, 640))
+try:
+    from lib import epd7in5b_V2
+    logging.info("epd7in5b_V2 Demo")
+    epd = epd7in5b_V2.EPD()
 
-utils.save_image(Himage, "output.png")
+except RuntimeError as e:
+    logging.error(e)
+
+
+try:
+    logging.info("init and Clear")
+    epd.init()
+    epd.Clear()
+
+    Himage = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame
+    Himage_Other = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame
+    draw_Himage = ImageDraw.Draw(Himage)
+
+    Himage.paste(calendar.draw(), (var.margin, var.margin))
+    Himage.paste(weather.draw(), (250, var.margin))
+    Himage.paste(meeting.draw(), (var.margin, 240))
+    Himage.paste(todo.draw(), (250, 240))
+    Himage.paste(goal.draw(), (var.margin, 480))
+    Himage.paste(graph.draw(), (var.margin, 640))
+
+    if epd.fake:
+        utils.save_image(Himage, "output.png")
+    else:
+        epd.display(epd.getbuffer(Himage), epd.getbuffer(Himage_Other))
+        time.sleep(180)
+
+    logging.info("Clear...")
+    epd.init()
+    epd.Clear()
+
+    logging.info("Goto Sleep...")
+    epd.sleep()
+
+except IOError as e:
+    logging.info(e)
+
+except KeyboardInterrupt:
+    logging.info("ctrl + c:")
+    from lib import epd7in5b_V2
+    epd7in5b_V2.epdconfig.module_exit(cleanup=True)
+    exit()

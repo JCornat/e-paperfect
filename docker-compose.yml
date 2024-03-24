@@ -5,7 +5,6 @@ services:
         container_name: e-paperfect
         volumes:
             - ./script:/src/script
-            - ./lib:/src/lib
             - ./assets:/src/assets
         command: python3 /src/script/main.py
         environment:
