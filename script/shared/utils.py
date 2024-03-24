@@ -30,7 +30,7 @@ def font(size="base", weight="Regular", family="PTSans", italic=False):
     elif size == "4xl":
         size_int = 72
     elif size == "5xl":
-        size_int = 100
+        size_int = 110
     else:
         size_int = 20
 

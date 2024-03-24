@@ -21,7 +21,6 @@ def draw():
 
     item_size = (55, 65)
     for i, item in enumerate(list):
-        print(i, item)
         origin = (16 + i * item_size[0] + i * 12, card_size[1] - item_size[1] - 16)
         image_draw.rounded_rectangle((origin[0], origin[1], origin[0] + item_size[0], origin[1] + item_size[1]), width=var.card_line_width, radius=var.card_radius, fill=None)
         image_draw.text((int(item_size[0] / 2) + origin[0], origin[1] + item_size[1] - 10), item["name"], font=utils.font(size="xs"), fill=0, anchor="mm")
