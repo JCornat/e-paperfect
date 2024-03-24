@@ -34,7 +34,7 @@ try:
     Himage.paste(goal.draw(), (var.margin, 480))
     Himage.paste(graph.draw(), (var.margin, 640))
 
-    if epd.fake:
+    if hasattr(epd, 'fake'):
         utils.save_image(Himage, "output.png")
     else:
         epd.display(epd.getbuffer(Himage), epd.getbuffer(Himage_Other))
