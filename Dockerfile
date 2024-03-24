@@ -15,11 +15,3 @@ RUN groupadd -g $GID $UNAME && \
     useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 
 USER $UNAME
-
-# Copy project files
-COPY src src
-COPY assets assets
-COPY lib lib
-
-# Launch script
-CMD python src/main.py

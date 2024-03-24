@@ -4,9 +4,10 @@ services:
         build: .
         container_name: e-paperfect
         volumes:
-            - ./src:/src/src
+            - ./script:/src/script
             - ./lib:/src/lib
             - ./assets:/src/assets
+        command: python3 /src/script/main.py
         environment:
             - TZ=Europe/Paris
         logging:
