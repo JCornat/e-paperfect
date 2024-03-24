@@ -19,32 +19,29 @@ except RuntimeError as e:
 
 
 try:
-    logging.info("init and Clear")
     epd.init()
     epd.Clear()
 
-    Himage = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame
-    Himage_Other = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame
+    Himage = Image.new("1", (epd.height, epd.width), 255)  # 255: clear the frame
+    Himage_Other = Image.new("1", (epd.height, epd.width), 255)  # 255: clear the frame
     draw_Himage = ImageDraw.Draw(Himage)
 
     Himage.paste(calendar.draw(), (var.margin, var.margin))
     Himage.paste(weather.draw(), (250, var.margin))
-    Himage.paste(meeting.draw(), (var.margin, 240))
     Himage.paste(todo.draw(), (250, 240))
-    Himage.paste(goal.draw(), (var.margin, 480))
+    Himage.paste(goal.draw(), (var.margin, 490))
     Himage.paste(graph.draw(), (var.margin, 640))
+    Himage.paste(meeting.draw(), (var.margin, 240))
 
-    if hasattr(epd, 'fake'):
+    if hasattr(epd, "fake"):
         utils.save_image(Himage, "output.png")
     else:
         epd.display(epd.getbuffer(Himage), epd.getbuffer(Himage_Other))
+        epd.sleep()
         time.sleep(180)
 
-    logging.info("Clear...")
     epd.init()
     epd.Clear()
-
-    logging.info("Goto Sleep...")
     epd.sleep()
 
 except IOError as e:

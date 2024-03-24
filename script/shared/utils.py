@@ -1,6 +1,40 @@
-from PIL import Image
 import os
+
+from PIL import Image, ImageFont
 from shared import variables as var
+
+
+def font(size="base", weight="Regular", family="PTSans", italic=False):
+    if italic:
+        if weight == "Regular":
+            file_name = f"{family}-Italic.ttf"
+        else:
+            file_name = f"{family}-{weight}Italic.ttf"
+    else:
+        file_name = f"{family}-{weight}.ttf"
+
+    if size == "xs":
+        size_int = 12
+    elif size == "sm":
+        size_int = 16
+    elif size == "base":
+        size_int = 20
+    elif size == "lg":
+        size_int = 22
+    elif size == "xl":
+        size_int = 24
+    elif size == "2xl":
+        size_int = 48
+    elif size == "3xl":
+        size_int = 64
+    elif size == "4xl":
+        size_int = 72
+    elif size == "5xl":
+        size_int = 100
+    else:
+        size_int = 20
+
+    return ImageFont.truetype(os.path.join(var.fonts_dir, file_name), size_int)
 
 
 def import_image(image_name, size):
