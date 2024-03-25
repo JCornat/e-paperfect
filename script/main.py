@@ -22,16 +22,37 @@ try:
     epd.init()
     epd.Clear()
 
+    var.screen_height = epd.width
+    var.screen_width = epd.height
+
     Himage = Image.new("1", (epd.height, epd.width), 255)  # 255: clear the frame
     Himage_Other = Image.new("1", (epd.height, epd.width), 255)  # 255: clear the frame
     draw_Himage = ImageDraw.Draw(Himage)
 
-    Himage.paste(calendar.draw(), (var.margin, var.margin))
-    Himage.paste(weather.draw(), (250, var.margin))
-    Himage.paste(todo.draw(), (250, 240))
-    Himage.paste(goal.draw(), (var.margin, 490))
-    Himage.paste(graph.draw(), (var.margin, 640))
-    Himage.paste(meeting.draw(), (var.margin, 240))
+    y = var.margin
+    calendar_image = calendar.draw()
+    Himage.paste(calendar_image, (var.margin, y))
+
+    weather_image = weather.draw()
+    Himage.paste(weather_image, (utils.third_width() + var.margin * 2, y))
+
+    weather_image2 = weather.draw()
+    Himage.paste(weather_image2, (utils.third_width() * 2 + var.margin * 3, y))
+
+    y += calendar_image.height + var.margin
+    meeting_image = meeting.draw()
+    Himage.paste(meeting_image, (var.margin, y))
+
+    todo_image = todo.draw()
+    Himage.paste(todo_image, (utils.half_width() + var.margin * 2, y))
+
+    y += todo_image.height + var.margin
+    goal_image = goal.draw()
+    Himage.paste(goal_image, (var.margin, y))
+
+    y += goal_image.height + var.margin
+    graph_image = graph.draw()
+    Himage.paste(graph_image, (var.margin, y))
 
     if hasattr(epd, "fake"):
         utils.save_image(Himage, "output.png")

@@ -5,5 +5,7 @@ fonts_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path
 
 card_line_width = 1
 card_radius = 8
-margin = 20
-
+margin = 12
+padding = 16
+screen_width = 0
+screen_height = 0

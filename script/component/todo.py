@@ -3,11 +3,12 @@ from PIL import Image, ImageDraw
 
 
 def draw():
-    card_size = (210, 230)
+    card_size = (utils.half_width(), 325)
     image = Image.new("1", card_size, 255)
     image_draw = ImageDraw.Draw(image)
 
-    image_draw.text((16, 16), "A faire", font=utils.font(size="base", italic=0), fill=0, anchor="la")
+    image_draw.text((card_size[0] - 4, 18), "A FAIRE", font=utils.font(size="2xl", weight="Bold"), fill=0, anchor="rb")
+    # image_draw.text((var.padding, var.padding), "A faire", font=utils.font(size="base", italic=0), fill=0, anchor="la")
 
     list = [
         "Acheter du pain",
@@ -17,7 +18,7 @@ def draw():
 
     y = 44
     for i, item in enumerate(list):
-        image.paste(utils.import_image("check_box_outline_blank.png", (20, 20)), (16, y))
+        image.paste(utils.import_image("check_box_outline_blank.png", (20, 20)), (var.padding, y))
         image_draw.text((42, y), item, font=utils.font(size="sm", italic=1), fill=0, anchor="la")
         y += 25
 

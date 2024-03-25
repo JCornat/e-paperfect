@@ -3,7 +3,6 @@ import os
 from PIL import Image, ImageFont
 from shared import variables as var
 
-
 def font(size="base", weight="Regular", family="PTSans", italic=False):
     if italic:
         if weight == "Regular":
@@ -24,7 +23,7 @@ def font(size="base", weight="Regular", family="PTSans", italic=False):
     elif size == "xl":
         size_int = 24
     elif size == "2xl":
-        size_int = 48
+        size_int = 36
     elif size == "3xl":
         size_int = 64
     elif size == "4xl":
@@ -46,3 +45,16 @@ def import_image(image_name, size):
 
 def save_image(image, name):
     image.save(os.path.join(var.images_dir, name))
+
+
+def full_width():
+    return var.screen_width - var.margin * 2
+
+
+def half_width():
+    return int((var.screen_width - (var.margin * 3)) / 2)
+
+
+def third_width():
+    return int((var.screen_width - (var.margin * 4)) / 3)
+
