@@ -1,8 +1,8 @@
 from shared import utils, variables as var
-from PIL import Image, ImageDraw
+from PIL import Image
+from lib import epdfake
 import time
 import logging
-from lib import epdfake
 
 epd = None
 image_black = None
@@ -66,8 +66,8 @@ def draw_line(line, y):
     left_margin = int(var.margin / 2)
     height = 0
     for component in line["components"]:
-        dimension = draw_component(component["component"], component["col"], left_margin, y)
-        left_margin += dimension["width"] + var.margin
+        dimension = draw_component(component["component"], component["col"], left_margin, y, line["height"])
+        left_margin += dimension["width"]
         height = max(height, dimension["height"])
 
     return {
@@ -75,9 +75,8 @@ def draw_line(line, y):
     }
 
 
-def draw_component(component, col, left_margin, y):
-    global image_black
-    image_component = component.draw(width=utils.col_width(col))
+def draw_component(component, col, left_margin, y, height):
+    image_component = component.draw(width=utils.col_width(col), height=height)
     image_black.paste(image_component, (left_margin, y))
 
     return {

@@ -3,8 +3,8 @@ from PIL import Image, ImageDraw
 import random
 
 
-def draw(width=0):
-    card_size = (width - var.margin, 140)
+def draw(width=0, height=0):
+    card_size = (width - var.margin, height)
     image = Image.new("1", card_size, 255)
     image_draw = ImageDraw.Draw(image)
 
