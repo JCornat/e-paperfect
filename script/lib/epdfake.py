@@ -1,12 +1,8 @@
-# Display resolution
-EPD_WIDTH = 800
-EPD_HEIGHT = 480
-
-
+# A fake EPD class in order to test the script on a computer
 class EPD:
-    def __init__(self):
-        self.width = EPD_WIDTH
-        self.height = EPD_HEIGHT
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
         self.fake = 1
 
     def init(self):

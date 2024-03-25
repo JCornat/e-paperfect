@@ -25,7 +25,4 @@ def draw(width=0):
     for i, day in enumerate(reversed(("Mai", "Jun", "Jul", "Aou", "Sep", "Oct", "Nov", "Dec"))):
         image_draw.text((card_size[0] - ((i * item_size[0] * 3) + (i * margin * 3)), 0), day, font=utils.font(size="xs", italic=1), fill=0, anchor="ra")
 
-    margin_image = Image.new("1", (width, card_size[1]), 255)
-    margin_image.paste(image, (int(var.margin / 2), 0))
-
-    return margin_image
+    return utils.add_horizontal_margin(image)

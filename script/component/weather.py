@@ -26,7 +26,4 @@ def draw(width=0):
 
     image_draw.text((card_size[0] - var.padding, card_size[1] - var.padding), "Nancy", font=utils.font(size="base"), fill=0, anchor="rs")
 
-    margin_image = Image.new("1", (width, card_size[1]), 255)
-    margin_image.paste(image, (int(var.margin / 2), 0))
-
-    return margin_image
+    return utils.add_horizontal_margin(image)

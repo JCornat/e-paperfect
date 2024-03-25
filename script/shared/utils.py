@@ -47,5 +47,14 @@ def save_image(image, name):
     image.save(os.path.join(var.images_dir, name))
 
 
+# Calculate the width of an element based on 12 columns
 def col_width(number):
     return int(((var.screen_width - var.margin) / 12) * number)
+
+
+# Add a semi-margin to the left and right of the image
+# In order to have gap between components
+def add_horizontal_margin(image):
+    margin_image = Image.new("1", (image.width + var.margin, image.height), 255)
+    margin_image.paste(image, (int(var.margin / 2), 0))
+    return margin_image

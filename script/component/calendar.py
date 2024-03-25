@@ -15,7 +15,4 @@ def draw(width=0):
     text_center = (int(card_size[0] / 2), int(card_size[1] / 2))
     image_draw.text(text_center, "24", font=utils.font(size="5xl", weight="Bold"), fill=0, anchor="mm")
 
-    margin_image = Image.new("1", (width, card_size[1]), 255)
-    margin_image.paste(image, (int(var.margin / 2), 0))
-
-    return margin_image
+    return utils.add_horizontal_margin(image)
