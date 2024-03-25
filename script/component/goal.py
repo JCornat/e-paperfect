@@ -2,8 +2,8 @@ from shared import utils, variables as var
 from PIL import Image, ImageDraw
 
 
-def draw():
-    card_size = (utils.full_width(), 105)
+def draw(width=0):
+    card_size = (width - var.margin, 100)
     image = Image.new("1", card_size, 255)
     image_draw = ImageDraw.Draw(image)
 
@@ -21,7 +21,7 @@ def draw():
 
     item_size = (55, 65)
     for i, item in enumerate(list):
-        origin = (var.padding + i * item_size[0] + i * 12, card_size[1] - item_size[1] - var.padding)
+        origin = (12 + i * item_size[0] + i * 12, card_size[1] - item_size[1] - 12)
         image_draw.rounded_rectangle((origin[0], origin[1], origin[0] + item_size[0], origin[1] + item_size[1]), width=var.card_line_width, radius=var.card_radius, fill=None)
         image_draw.text((int(item_size[0] / 2) + origin[0], origin[1] + item_size[1] - 10), item["name"], font=utils.font(size="xs"), fill=0, anchor="mm")
         image.paste(utils.import_image(item["icon"], (40, 40)), (origin[0] + int(item_size[0] / 2) - 20, origin[1] + 6))
@@ -29,7 +29,9 @@ def draw():
         if item.get("done"):
             image.paste(utils.import_image("done.png", (20, 20)), (origin[0] + item_size[0] - 20, origin[1] + 2))
 
-
     image_draw.rounded_rectangle((0, 0, card_size[0] - 1, card_size[1] - 1), width=var.card_line_width, radius=var.card_radius, fill=None)
 
-    return image
+    margin_image = Image.new("1", (width, card_size[1]), 255)
+    margin_image.paste(image, (int(var.margin / 2), 0))
+
+    return margin_image

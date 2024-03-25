@@ -2,8 +2,8 @@ from PIL import Image, ImageDraw
 from shared import utils, variables as var
 
 
-def draw():
-    card_size = (utils.half_width(), 325)
+def draw(width=0):
+    card_size = (width - var.margin, 330)
     image = Image.new("1", card_size, 255)
     image_draw = ImageDraw.Draw(image)
 
@@ -39,4 +39,7 @@ def draw():
 
     image_draw.rounded_rectangle((0, 0, card_size[0] - 1, card_size[1] - 1), width=var.card_line_width, radius=var.card_radius, fill=None)
 
-    return image
+    margin_image = Image.new("1", (width, card_size[1]), 255)
+    margin_image.paste(image, (int(var.margin / 2), 0))
+
+    return margin_image

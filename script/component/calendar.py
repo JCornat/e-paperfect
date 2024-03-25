@@ -2,8 +2,8 @@ from shared import utils, variables as var
 from PIL import Image, ImageDraw
 
 
-def draw():
-    card_size = (utils.third_width(), 170)
+def draw(width=0):
+    card_size = (width - var.margin, 170)
     image = Image.new("1", card_size, 255)
     image_draw = ImageDraw.Draw(image)
 
@@ -15,4 +15,7 @@ def draw():
     text_center = (int(card_size[0] / 2), int(card_size[1] / 2))
     image_draw.text(text_center, "24", font=utils.font(size="5xl", weight="Bold"), fill=0, anchor="mm")
 
-    return image
+    margin_image = Image.new("1", (width, card_size[1]), 255)
+    margin_image.paste(image, (int(var.margin / 2), 0))
+
+    return margin_image

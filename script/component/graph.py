@@ -3,8 +3,8 @@ from PIL import Image, ImageDraw
 import random
 
 
-def draw():
-    card_size = (utils.full_width(), 140)
+def draw(width=0):
+    card_size = (width - var.margin, 140)
     image = Image.new("1", card_size, 255)
     image_draw = ImageDraw.Draw(image)
 
@@ -25,4 +25,7 @@ def draw():
     for i, day in enumerate(reversed(("Mai", "Jun", "Jul", "Aou", "Sep", "Oct", "Nov", "Dec"))):
         image_draw.text((card_size[0] - ((i * item_size[0] * 3) + (i * margin * 3)), 0), day, font=utils.font(size="xs", italic=1), fill=0, anchor="ra")
 
-    return image
+    margin_image = Image.new("1", (width, card_size[1]), 255)
+    margin_image.paste(image, (int(var.margin / 2), 0))
+
+    return margin_image
